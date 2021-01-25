@@ -1,3 +1,7 @@
+// Annotation tells Rust not to compile the code in this module
+// unless the command 'cargo test' is run
+// Note: Common convention is to include a test module in each
+// src code file
 #[cfg(test)]
 mod tests {
     // Used to bring the outer module inner for testing
@@ -19,10 +23,12 @@ mod tests {
         }
     }
 
+    /* commented out so that the integration
+    test of the same name can run
     #[test]
     fn it_adds_two() {
         assert_eq!(4, add_two(2))
-    }
+    }*/
 
     #[test]
     fn greeting_contains_name() {
@@ -83,6 +89,24 @@ mod tests {
     fn greater_than_100() {
         Guess::new(200);
     }
+
+    #[test]
+    fn this_test_will_pass() {
+        let value = prints_and_returns_10(4);
+        assert_eq!(10, value)
+    }
+
+    #[test]
+    #[ignore]
+    fn this_test_will_fail() {
+        let value = prints_and_returns_10(8);
+        assert_eq!(5, value)
+    }
+}
+
+pub fn prints_and_returns_10(a: i32) -> i32 {
+    println!("I got the value {}", a);
+    10
 }
 
 #[derive(Debug)]
